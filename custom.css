@@ -1,0 +1,44 @@
+body{
+    background-color:rgb(29, 40, 47);
+    color: beige
+}
+.toggle-btn{
+    position: absolute;
+    top: 15px;
+    left: 200px;
+    background-color: lightgray;
+    border-radius: 4px
+}
+.cust:hover{
+background-color: beige
+}
+.cust{
+    color: beige;
+    border: solid beige 2px
+}
+.cust-bottom{
+    border-bottom: solid beige 2px
+}
+.parallax {
+    /* The image used */
+    background-image: url("./images/background.jpg");
+      /* Set a specific height */
+    min-height: 450px; 
+      /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    /* opacity: 0.8; */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.bar{
+    justify-content: left ;
+    
+    color: beige;
+}
+#coin-card{
+    background-color: beige;
+    color: black;
+    border: solid black 3px;
+    border-radius: 5px
+}

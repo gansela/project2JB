@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CryptoFind Project</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./custom.css">
+
+</head>
+
+<body>
+    <div class=" m-0 cust-bottom ">
+        <h1 class=" ml-5">Cryptofind</h1>
+        <h3 class=" ml-5">Free Crypto-Currency Information</h3>
+    </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid bar">
+            <div class="row col-6">
+                <button class="btn ml-5 cust">Home</button>
+                <button class="btn ml-5 cust">Live Reports</button>
+                <button class="btn ml-5 cust">About</button>
+            </div>
+        </div>
+    </nav>
+    <div class="parallax"></div>
+    <div id="content"></div>
+    <div id="coin-card" class="card m-4" style="width: 18rem; display: none">
+        <div class="card-body">
+            <h5 class="card-title">symbol</h5>
+            <p class="card-text">name</p>
+            <button class="btn btn-primary more-info">More Info</button>
+            <div class="toggle-btn">
+                <input class="toggle-one"type="checkbox">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="./services.js"></script>
+    <script src="./models.js"></script>
+    <script src="./utils.js"></script>
+    <script src="./canvas.js"></script>
+    <script src="./index.js"></script>
+
+</body>
+
+
+</html>
