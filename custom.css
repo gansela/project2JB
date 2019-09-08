@@ -17,8 +17,8 @@ background-color: beige
     border: solid beige 2px
 }
 .cust-bottom{
-    border-bottom: solid beige 2px
-}
+    border-bottom: solid beige 2px;
+    }
 .parallax {
     /* The image used */
     background-image: url("./images/background.jpg");
@@ -33,12 +33,37 @@ background-color: beige
 }
 .bar{
     justify-content: left ;
-    
     color: beige;
+}
+
+.info-div{
+    position: absolute;
+    width: 160px;
+    height: 60px;
+    top: 95px;
+    left: 140px;
+    font-size: 0.8em;
+    line-height: 1.2em;
+    display: none;
+}
+.info-div img{
+font-size: 0.6em
+}
+.info-div ul{
+    list-style-type: none;
+}
+.sticky{
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    background-color: rgb(29, 40, 47)
 }
 #coin-card{
     background-color: beige;
     color: black;
     border: solid black 3px;
     border-radius: 5px
+}
+#content{
+    width: 100%
 }

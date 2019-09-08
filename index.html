@@ -13,29 +13,61 @@
 </head>
 
 <body>
-    <div class=" m-0 cust-bottom ">
-        <h1 class=" ml-5">Cryptofind</h1>
-        <h3 class=" ml-5">Free Crypto-Currency Information</h3>
-    </div>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid bar">
-            <div class="row col-6">
-                <button class="btn ml-5 cust">Home</button>
-                <button class="btn ml-5 cust">Live Reports</button>
-                <button class="btn ml-5 cust">About</button>
-            </div>
-        </div>
-    </nav>
-    <div class="parallax"></div>
-    <div id="content"></div>
+
+    <!-- a tamplate for cloning the coins cards -->
     <div id="coin-card" class="card m-4" style="width: 18rem; display: none">
         <div class="card-body">
             <h5 class="card-title">symbol</h5>
             <p class="card-text">name</p>
             <button class="btn btn-primary more-info">More Info</button>
             <div class="toggle-btn">
-                <input class="toggle-one"type="checkbox">
+                <input class="toggle-one" type="checkbox">
             </div>
+            <div class="info-div row">
+                <img class="col-3 p-0 mb-5 " src="./images/placeholder.png" alt="No logo">
+                <ul class=" pl-2">
+                    <li id="usd">$:</li>
+                    <li id="eur">€:</li>
+                    <li id="ils">₪:</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="sticky ">
+        <div class=" m-0 row ">
+            <h1 class=" ml-5">Cryptofind</h1>
+            <h5 class=" ml-5 pt-3">Free Crypto-Currency Info</h5>
+        </div>
+        <nav class="navbar navbar-default mb-5 cust-bottom">
+            <div class="container-fluid bar">
+                <div class="row col-9 col-md-6 mr-0">
+                    <button class="btn p-0 p-md-1 ml-2 cust col-3 col-md-2">Home</button>
+                    <button class="btn   p-0 p-md-1 ml-2 cust  col-4 col-md-3">Live Reports</button>
+                    <button class="btn   p-0 p-md-1 ml-2 cust  col-3 col-md-2">About</button>
+                </div>
+                <div class="row col-4 col-md-3 ">
+                    <input type="text" class="form-control col-10 col-md- 2" id="coin-search" placeholder="Search">
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="parallax" >
+        <div id="content"></div>
+        <div class="pagination justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item"><button class="page-link" href="#">1</button></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 
