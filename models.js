@@ -2,10 +2,10 @@
 
 class Coin {
     constructor(coinApiObject, isSelected, page) {
-        const { _id, symbol, name } = coinApiObject
+        const { id, symbol, name } = coinApiObject
         this.name = name
         this.symbol = symbol;
-        this.id = _id
+        this.id = id
         this.isSelected = isSelected
         this.isShowInfo = false
         this.page = page || 0

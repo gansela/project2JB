@@ -13,28 +13,28 @@ function init() {
     let pageNavSlice = (pageNumber - 1) * 16
     api.getCoins().then(res => storeCoinInState(res.slice(pageNavSlice, pageNavSlice + 16)))
     $("#coin-search").on("input", function () {
-        $("#canvas-div").css({ display : "none"})
-        $("#about-div").css({ display : "none"})
+        closeCanvas()
+        $("#canvas-div").css({ display: "none" })
+        $("#about-div").css({ display: "none" })
         findCoins(this.value)
     })
     $("#home").on("click", function () {
-        brush.clearRect(0, 0, 800, 400)
-        $("#home-div").css({ display : "block"})
-        $("#canvas-div").css({ display : "none"})
-        $("#about-div").css({ display : "none"})
+        closeCanvas()
+        $("#home-div").css({ display: "block" })
+        $("#canvas-div").css({ display: "none" })
+        $("#about-div").css({ display: "none" })
     })
-    brush.clearRect(0, 0, 800, 400)
     $("#live-reports").on("click", function () {
-        $("#home-div").css({ display : "none"})
-        $("#canvas-div").css({ display : "block"})
-        $("#about-div").css({ display : "none"})
+        $("#home-div").css({ display: "none" })
+        $("#canvas-div").css({ display: "block" })
+        $("#about-div").css({ display: "none" })
         canvasInit()
     })
     $("#about").on("click", function () {
-        brush.clearRect(0, 0, 800, 400)
-        $("#home-div").css({ display : "none"})
-        $("#canvas-div").css({ display : "none"})
-        $("#about-div").css({ display : "block"})
+        closeCanvas()
+        $("#home-div").css({ display: "none" })
+        $("#canvas-div").css({ display: "none" })
+        $("#about-div").css({ display: "block" })
     })
     $("#next").on("click", function () {
         $("#content").html('<div class="loader"></div>');
@@ -82,9 +82,7 @@ function draw(coinsStateObject) {
         clonedCard.find(".more-info").on("click", async () => {
             if (coinsState[symbol].isShowInfo) { lessInfo(symbol); return }
             await api.getCoinInfo(id).then(res => saveCoinInfo(res))
-            if ($("#coin-search").val()) { findCoins($("#coin-search").val()); return }
-            $(".toggle-one").bootstrapToggle("destroy");
-            draw(coinsState)
+            toggleAndDraw()
         })
         clonedCard.find(".toggle-one").on("change", () => {
             selectCard(symbol)

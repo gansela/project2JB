@@ -2,16 +2,18 @@
 // search option through the api and drawing only the searcehd coin 
 async function findCoins(val) {
     $(".toggle-one").bootstrapToggle("destroy");
-    brush.clearRect(0, 0, 800, 400)
     $(".page-nav").css({ display: "none" });
     if (val === "") { draw(coinsState); $(".page-nav").css({ display: "flex" }); return }
     let searchObj = {}
     if (!coinsState[val]) {
+        $("#content").html('<div class="loader"></div>');
         await api.getCoins().then(res => findCoinFromApi(res, val))
-            .then((coin) => { coinsState[val] = new Coin(coin, false, 0) })
-            .catch(err => $("#content").html("no results"))
+            .then((coin) => {
+                if (!coin) { return $("#content").html("no results") }
+                coinsState[val] = new Coin(coin, false, 0)
+            })
+        return
     }
-    if (!coinsState[val]) return
     searchObj[val] = { ...coinsState[val] }
     draw(searchObj)
     $("#home-div").css({ display: "block" })
@@ -54,9 +56,7 @@ function showInfoDiv(card) {
 // toggling of the more info Option, making sure if the search input is not empty to still drwing the search 
 function lessInfo(key) {
     coinsState[key].isShowInfo = false;
-    if ($("#coin-search").val()) { findCoins($("#coin-search").val()); return }
-    $(".toggle-one").bootstrapToggle("destroy");
-    draw(coinsState)
+    toggleAndDraw()
 }
 
 // adding selected cards to the reports Array, making sure to popp and switch them with listeners
@@ -79,13 +79,9 @@ function selectCard(symbol) {
     $("#coins-list").append(coinsList)
     $(".popup").find(".cancel-btn").on("click", () => {
         $(".popup").css({ display: "none" })
-        if ($("#coin-search").val()) { findCoins($("#coin-search").val()); return }
-        $(".toggle-one").bootstrapToggle("destroy");
-        draw(coinsState)
+        toggleAndDraw()
     })
-    if ($("#coin-search").val()) { findCoins($("#coin-search").val()); return }
-    $(".toggle-one").bootstrapToggle("destroy");
-    draw(coinsState)
+    toggleAndDraw()
 }
 
 // cloning and showing the selecte coins in the popupdiv
@@ -102,13 +98,15 @@ function popupCoin(coin, waitingList) {
         reportsArray.splice(index, 1)
         reportsArray.push(waitingList)
         waitingList.isSelected = true
-        if ($("#coin-search").val()) { findCoins($("#coin-search").val()); return }
-        $(".toggle-one").bootstrapToggle("destroy");
-        draw(coinsState)
     })
     return clonedCoin
 }
 
+function toggleAndDraw() {
+    if ($("#coin-search").val()) { findCoins($("#coin-search").val()); return }
+    $(".toggle-one").bootstrapToggle("destroy");
+    draw(coinsState)
+}
 
 
 

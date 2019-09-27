@@ -7,15 +7,13 @@ canvas{
     /* z-index: -1; */
 }
 .reports-item{
-    width: 5%;
+    vertical-align: center;
     height: 50px;
-    background-color: transparent
-}
-.reports-span{
+    margin: 20px;
+    background-color: gray;
     font-weight: 500;
-    padding-right: -100px;
-    margin-right: -100px;
 }
+
 .toggle-btn{
     position: absolute;
     top: 15px;
