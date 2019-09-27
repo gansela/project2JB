@@ -14,6 +14,33 @@
 
 <body>
 
+    <div class="sticky ">
+        <div class=" m-0 row ">
+            <h1 class=" ml-5">Cryptofind</h1>
+            <h5 class=" ml-5 pt-3">Free Crypto-Currency Info</h5>
+        </div>
+        <nav class="navbar navbar-default mb-5 cust-bottom">
+            <div class="container-fluid bar">
+                <div class="row col-9 col-md-6 mr-0">
+                    <button class="btn p-0 p-md-1 ml-2 cust col-3 col-md-2" id="home">Home</button>
+                    <button class="btn   p-0 p-md-1 ml-2 cust  col-4 col-md-3" id="live-reports">Live Reports</button>
+                    <button class="btn   p-0 p-md-1 ml-2 cust  col-3 col-md-2" id="about">About</button>
+                </div>
+                <div class="row col-4 col-md-3 ">
+                    <input type="text" class="form-control col-10 col-md- 2" id="coin-search" placeholder="Search">
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+    <!-- a tamplate for popup list items -->
+    <div class="col-7 col-md-2  d-none " id="generic-array-coin">
+        <button class="  btn-sm btn btn-danger delete-coin">✖</button>
+        <span class="coin-span ">dsaasd</span>
+    </div>
+
+
     <!-- a tamplate for cloning the coins cards -->
     <div id="coin-card" class="card m-4" style="width: 18rem; display: none">
         <div class="card-body">
@@ -33,41 +60,45 @@
             </div>
         </div>
     </div>
-    <div class="sticky ">
-        <div class=" m-0 row ">
-            <h1 class=" ml-5">Cryptofind</h1>
-            <h5 class=" ml-5 pt-3">Free Crypto-Currency Info</h5>
-        </div>
-        <nav class="navbar navbar-default mb-5 cust-bottom">
-            <div class="container-fluid bar">
-                <div class="row col-9 col-md-6 mr-0">
-                    <button class="btn p-0 p-md-1 ml-2 cust col-3 col-md-2">Home</button>
-                    <button class="btn   p-0 p-md-1 ml-2 cust  col-4 col-md-3">Live Reports</button>
-                    <button class="btn   p-0 p-md-1 ml-2 cust  col-3 col-md-2">About</button>
-                </div>
-                <div class="row col-4 col-md-3 ">
-                    <input type="text" class="form-control col-10 col-md- 2" id="coin-search" placeholder="Search">
-                </div>
-            </div>
-        </nav>
-    </div>
+
 
     <div class="parallax">
-        <div id="content"></div>
-        <div class="pagination justify-content-center page-nav">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-end">
-                    <li class="page-item" id="previous-id">
-                        <button class="page-link " id="previous">Previous</button>
-                    </li>
-                    <li class="page-item disabled">
-                        <button class="page-link" id="page-number">1</button>
-                    </li>
-                    <li class="page-item">
-                        <button class="page-link" id="next">Next</button>
-                    </li>
-                </ul>
-            </nav>
+        <div id="home-div">
+            <div id="content"></div>
+            <div class="pagination justify-content-center page-nav">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item" id="previous-id">
+                            <button class="page-link " id="previous">Previous</button>
+                        </li>
+                        <li class="page-item disabled">
+                            <button class="page-link" id="page-number">1</button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" id="next">Next</button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div id="about-div">about</div>
+        <div id="canvas-div" align="center" class="mt-5">
+                <div class=" row justify-content-around m-5">
+                        <span class="reports-span"></span><div class="reports-item"></div>
+                        <span class="reports-span"></span><div class="reports-item"></div>
+                        <span class="reports-span"></span><div class="reports-item"></div>
+                        <span class="reports-span"></span><div class="reports-item"></div>
+                        <span class="reports-span"></span><div class="reports-item"></div>
+                    </div>
+            <canvas></canvas>
+        </div>
+    </div>
+    <div class=" popup">
+        <div class="continer m-3">
+            <h5>In order to add another coin please remove atleast one from the selected list </h5>
+            <div class="row mt-md-5" id="coins-list">
+            </div>
+            <button class="btn btn-info cancel-btn">Cancel</button>
         </div>
     </div>
 

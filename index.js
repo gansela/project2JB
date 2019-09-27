@@ -1,17 +1,43 @@
-
+//  the model of all the cryptocoins
 let coinsState = {}
-let lastCoinInfo = {}
+
+// for use in pagination 
 let pageNumber = 1
 
+// 5 coins array for reports and popup 
+const reportsArray = []
 
+// init and listeners fo paginations and navbar
 function init() {
     $("#content").html('<div class="loader"></div>');
     let pageNavSlice = (pageNumber - 1) * 16
     api.getCoins().then(res => storeCoinInState(res.slice(pageNavSlice, pageNavSlice + 16)))
     $("#coin-search").on("input", function () {
+        $("#canvas-div").css({ display : "none"})
+        $("#about-div").css({ display : "none"})
         findCoins(this.value)
     })
+    $("#home").on("click", function () {
+        brush.clearRect(0, 0, 800, 400)
+        $("#home-div").css({ display : "block"})
+        $("#canvas-div").css({ display : "none"})
+        $("#about-div").css({ display : "none"})
+    })
+    brush.clearRect(0, 0, 800, 400)
+    $("#live-reports").on("click", function () {
+        $("#home-div").css({ display : "none"})
+        $("#canvas-div").css({ display : "block"})
+        $("#about-div").css({ display : "none"})
+        canvasInit()
+    })
+    $("#about").on("click", function () {
+        brush.clearRect(0, 0, 800, 400)
+        $("#home-div").css({ display : "none"})
+        $("#canvas-div").css({ display : "none"})
+        $("#about-div").css({ display : "block"})
+    })
     $("#next").on("click", function () {
+        $("#content").html('<div class="loader"></div>');
         pageNumber++
         pageNavSlice = (pageNumber - 1) * 16
         $(".toggle-one").bootstrapToggle("destroy");
@@ -25,6 +51,7 @@ function init() {
     })
 }
 
+// creating coin classes from Api items and sending to draw 
 function storeCoinInState(apiCoinsArray) {
     const state = apiCoinsArray.reduce((ecumilator, coin) => {
         const { symbol } = coin;
@@ -37,6 +64,8 @@ function storeCoinInState(apiCoinsArray) {
     draw(coinsState)
 }
 
+
+// drawing coinsState, enabling previousToggle, creating listenrs for the coin cards 
 function draw(coinsStateObject) {
     $("#content").html("");
     const pageCards = Object.keys(coinsStateObject).reduce((array, key) => {
@@ -58,7 +87,7 @@ function draw(coinsStateObject) {
             draw(coinsState)
         })
         clonedCard.find(".toggle-one").on("change", () => {
-            coinsState[symbol].isSelected = !coinsState[symbol].isSelected
+            selectCard(symbol)
         })
         if (coinsState[symbol].isShowInfo) { showInfoDiv(clonedCard) }
         $("#content").append(clonedCard);
@@ -67,33 +96,8 @@ function draw(coinsStateObject) {
     })
     previousToggle()
     $(".toggle-one").bootstrapToggle();
-    }
-
-function saveCoinInfo(coin) {
-    const superIsSelected = coinsState[coin.symbol].isSelected
-    const superPage = coinsState[coin.symbol].page
-    coinsState[coin.symbol] = new CoinMoreInfo(coin, superIsSelected, superPage)
-    coinsState[coin.symbol].isShowInfo = !coinsState[coin.symbol].isShowInfo
 }
 
-function showInfoDiv(card) {
-    const id = card.find(".card-title").html()
-    const { pic, usdRate, eurRate, ilsRate } = coinsState[id]
-    const infoDiv = card.find(".info-div")
-    infoDiv.css({ display: "flex" });
-    infoDiv.find("img").attr({ "src": pic })
-    infoDiv.find("#usd").html(`usd: ${usdRate}`)
-    infoDiv.find("#eur").html(`eur: ${eurRate}`)
-    infoDiv.find("#ils").html(`ils: ${ilsRate}`)
-    card.find(".more-info").html("Hide Info")
-}
-
-function lessInfo(key) {
-    coinsState[key].isShowInfo = false;
-    if ($("#coin-search").val()) { findCoins($("#coin-search").val()); return }
-    $(".toggle-one").bootstrapToggle("destroy");
-    draw(coinsState)
-}
 
 
 init()
