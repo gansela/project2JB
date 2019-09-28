@@ -13,29 +13,112 @@
 </head>
 
 <body>
-    <div class=" m-0 cust-bottom ">
-        <h1 class=" ml-5">Cryptofind</h1>
-        <h3 class=" ml-5">Free Crypto-Currency Information</h3>
-    </div>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid bar">
-            <div class="row col-6">
-                <button class="btn ml-5 cust">Home</button>
-                <button class="btn ml-5 cust">Live Reports</button>
-                <button class="btn ml-5 cust">About</button>
-            </div>
+
+    <div class="sticky ">
+        <div class=" m-0 row ">
+            <h1 class=" ml-5">Cryptofind</h1>
+            <h5 class=" ml-5 pt-3">Free Crypto-Currency Info</h5>
         </div>
-    </nav>
-    <div class="parallax"></div>
-    <div id="content"></div>
+        <nav class="navbar navbar-default mb-5 cust-bottom">
+            <div class="container-fluid bar row">
+                <div class="row col-9 col-md-8 mr-0">
+                    <button class="btn p-0 p-md-1 ml-2 cust col-3 col-md-2" id="home">Home</button>
+                    <button class="btn   p-0 p-md-1 ml-2 cust  col-4 col-md-3" id="live-reports">Live Reports</button>
+                    <button class="btn   p-0 p-md-1 ml-2 cust  col-3 col-md-2" id="about">About</button>
+                </div>
+                <div class="row col-4 col-md-4 pl-0 pl-md-5 ">
+                    <input type="text" class="form-control col-5 col-md-6 p-0 p-md-1" id="coin-search" >
+                    <button id="coin-search-btn" class="btn col-7 col-md-2 p-0 p-md-1 cust">Search</button>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+    <!-- a tamplate for popup list items -->
+    <div class="col-7 m-2  d-none " id="generic-array-coin">
+        <button class="  btn-sm btn btn-danger delete-coin">Replace</button>
+        <span class="coin-span ">dsaasd</span>
+    </div>
+
+
+    <!-- a tamplate for cloning the coins cards -->
     <div id="coin-card" class="card m-4" style="width: 18rem; display: none">
         <div class="card-body">
             <h5 class="card-title">symbol</h5>
             <p class="card-text">name</p>
             <button class="btn btn-primary more-info">More Info</button>
             <div class="toggle-btn">
-                <input class="toggle-one"type="checkbox">
+                <input class="toggle-one" type="checkbox">
             </div>
+            <div class="info-div row">
+                <img class="col-3 p-0 mb-5 " src="./images/placeholder.png" alt="No logo">
+                <ul class=" pl-2">
+                    <li id="usd">$:</li>
+                    <li id="eur">€:</li>
+                    <li id="ils">₪:</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+<!-- all three pages inside the parallex -->
+    <div class="parallax">
+
+        <div id="home-div">
+            <div id="content"></div>
+            <!-- pagination -->
+            <div class="pagination justify-content-center page-nav">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item" id="previous-id">
+                            <button class="page-link " id="previous">Previous</button>
+                        </li>
+                        <li class="page-item disabled">
+                            <button class="page-link" id="page-number">1</button>
+                        </li>
+                        <li class="page-item">
+                            <button class="page-link" id="next">Next</button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div id="about-div" class="container-fluid">
+            <div class="row">
+                <img src="./images/gan.jpg" alt="Picture not available" class="col-10 col-md-2 ml-4">
+                <div class="col-12 col-md-8 about">
+                    <p class="mt-2">CryptoFind is a free crypto-currency information app. with CryptoFind you can search, compare and see live updates about all available crypto-coins.</p>
+                    <p>CryptoFind was founded and designed by Gan Sela as part of a web developer course in John Bryce collage by Matrix</p>
+                    <p>Gan Sela is a fullstack web developer with expirience in the film, television and autonomous driving fields.</p>
+                    <p>you can contact Gan sela through his <a href="https://www.linkedin.com/in/gan-sela-5a4a5433/?originalSubdomain=il">LinkedIn acount</a> </p>
+                </div>
+            </div>
+        </div>
+
+        <div id="canvas-div" class="mt-5 ">
+            <div class=" row">
+                <div class="col-12 col-md-2 justify-content-around m-3">
+                    <div class="reports-item"></div>
+                    <div class="reports-item"></div>
+                    <div class="reports-item"></div>
+                    <div class="reports-item"></div>
+                    <div class="reports-item"></div>
+                </div>
+                <div class="col-12 col-md-7 m-3">
+                    <canvas></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- fixed popup div -->
+    <div class=" popup">
+        <div class="continer m-3">
+            <h5>In order to add another coin please remove atleast one from the selected list </h5>
+            <div class="row mt-md-1" id="coins-list">
+            </div>
+            <button class="btn btn-info cancel-btn">Cancel</button>
         </div>
     </div>
 
