@@ -9,15 +9,15 @@ class Coin {
         this.isSelected = isSelected
         this.isShowInfo = false
         this.page = page || 0
-     }
+    }
 
 }
 
 
 // class coin when you enable the more info  button 
-class CoinMoreInfo extends Coin{
-    constructor(extendedObject, isSelected, page){
-        const { image, market_data} = extendedObject 
+class CoinMoreInfo extends Coin {
+    constructor(extendedObject, isSelected, page) {
+        const { image, market_data } = extendedObject
         super(extendedObject, isSelected, page)
         this.pic = image.thumb
         this.usdRate = market_data.current_price.usd
@@ -26,6 +26,3 @@ class CoinMoreInfo extends Coin{
     }
 }
 
-class CryptoFind{
-    
-}

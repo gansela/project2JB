@@ -2,10 +2,11 @@ body{
     background-color:rgb(29, 40, 47);
     color: beige;
 }
+
 canvas{
     background-color: white;
-    /* z-index: -1; */
 }
+
 .reports-item{
     vertical-align: center;
     height: 50px;
@@ -21,21 +22,25 @@ canvas{
     background-color: lightgray;
     border-radius: 4px
 }
+
 .cust:hover{
 background-color: beige
 }
+
 .cust{
     color: beige;
     border: solid beige 2px
 }
+
 .cust-bottom{
     border-bottom: solid beige 2px;
     }
+
 .parallax {
     /* The image used */
     background-image: url("./images/background.jpg");
       /* Set a specific height */
-    min-height: 450px; 
+    min-height: 650px; 
       /* Create the parallax scrolling effect */
     background-attachment: fixed;
     /* opacity: 0.8; */
@@ -43,6 +48,7 @@ background-color: beige
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 .bar{
     justify-content: left ;
     color: beige;
@@ -59,18 +65,30 @@ background-color: beige
     display: none;
     
 }
+
 .info-div img{
 font-size: 0.6em
 }
+
 .info-div ul{
     list-style-type: none;
 }
+
 .sticky{
     position: sticky;
     top: 0;
     z-index: 9999;
     background-color: rgb(29, 40, 47)
 }
+
+.about {
+    background-color:  rgb(245, 245, 220, .2);
+    color: beige;
+    border: solid beige 3px;
+    border-radius: 5px;
+    vertical-align: middle
+}
+
 #coin-card{
     background-color:  rgb(245, 245, 220, .2);
     
@@ -78,48 +96,53 @@ font-size: 0.6em
     border: solid beige 3px;
     border-radius: 5px
 }
+
 #content{
     width: 100%
 }
+
 #about-div{
     display: none
 }
+
 #canvas-div{
     display: none
 }
 .page-nav{
     display: none;
 }
+
 .popup{
     position: fixed;
     z-index: 9999;
-    width: 80%;
-    height: 300px;
+    width: 300px;
+    height: 400px;
     background-color: beige;
     border: solid black 3px;
-    border-radius: 20px;
-    top: 200px;
-    left: 10%;
+    border-radius: 5px;
+    top: 100px;
+    right: 12%;
     display:none;
     color :rgb(29, 40, 47);
     /* text-align: center */
+    align-self: center
 }
+
 .coin-span{
     font-size: 1.3em;
     font-weight: 500;
     vertical-align: bottom
 }
+
 .delete-coin{
-    border-radius: 20px
+    border-radius: 5px
 }
-/* .coins-list{
-    display: none
-} */
+
 .cancel-btn{
     position:relative;
-    top: 120px;
     left:60%;
 }
+
 .loader {
     height: 20px;
     width: 100%;
@@ -128,6 +151,7 @@ font-size: 0.6em
     overflow: hidden;
     background-color: #ddd;
 }
+
   .loader:before{
     display: block;
     position: absolute;

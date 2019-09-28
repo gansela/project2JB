@@ -1,19 +1,33 @@
+// canvas context init and size
 const canvas = document.querySelector("canvas");
 const brush = canvas.getContext("2d")
-
 canvas.width = 800
 canvas.height = 400
 
+// a boolean for closing the canvas when in another page
 let isCanvas = false
 
+// first array, takes context from home and search page and adds canvas vaiables 
 let liveArray = []
 
+// the api request interval varlible 
 let interval
 
+// init the loader radius 
 let radius = 10
 
-let isLoader = true
+// loader condition 
+let isLoader = false
 
+// random colors for loader 
+const colorArray = []
+for (let i = 0; i < 5; i++) {
+    colorArray.push("#" + ((1 << 24) * Math.random() | 0).toString(16))
+}
+
+// init the canvas when opening the page. starts the isLoader,
+//  validaes selected coins and api data, starts the interval drawVerticalLine,
+// calculetes lines and points value comperes to the canvas
 async function canvasInit() {
     if (!reportsArray[0]) {
         brush.font = "50px Arial";
@@ -21,9 +35,6 @@ async function canvasInit() {
         brush.fillText("No Coins selected", 200, 200)
         return
     }
-    radius = 10
-    isLoader = true
-    canvasLoader()
     liveArrayPre = [
         { ...reportsArray[0], color: "green" },
         { ...reportsArray[1], color: "red" },
@@ -42,6 +53,7 @@ async function canvasInit() {
                 item.usd.push(info[symbol.toUpperCase()].USD)
             }
             item.data = true
+            isLoader = true
         } else item.data = false
     })
     $(".reports-item").each((i, sqr) => {
@@ -56,42 +68,46 @@ async function canvasInit() {
             }
         }
     });
-    const arrFiltered = liveArray.filter((item) => { if (item.data) return item })
-        .map(item => { return { "symbol": item.symbol, "usd": item.usd, "color": item.color } })
-    // let count = 1
-    interval = setInterval(async function () {
-        isCanvas = true
-        brush.clearRect(0, 0, 800, 400)
-        drawLines(100)
-        drawLines(200)
-        drawLines(300)
-        drawVerticalLine()
-        const bigNum = arrFiltered.reduce((reasult, item) => {
-            for (let i = 0; i < item.usd.length; i++) {
-                if (item.usd[i] > reasult) reasult = item.usd[i]
-            }
-            return reasult
-        }, 0)
-        const arrDraw = setHieghts(bigNum, arrFiltered)
-        drawGraphPoints(arrDraw, arrFiltered)
-        const NewInfo = await getInfo(reportsData)
-        console.log(arrFiltered)
-        arrFiltered.forEach(item => {
-            const { usd, symbol } = item
-            usd.splice(0, 1)
-            usd.push(NewInfo[symbol.toUpperCase()].USD)
-        })
-        let count = 0
-        $(".reports-item").each((i, sqr) => {
-            if (liveArray[i]) {
-                if (!liveArray[i].data) return
-                $(sqr).html(`${liveArray[i].symbol} (${arrFiltered[count].usd[4]})`)
-                count++
-            }
-        })
-    }, 3000);
+    radius = 10
+    if (isLoader) {
+        canvasLoader()
+        const arrFiltered = liveArray.filter((item) => { if (item.data) return item })
+            .map(item => { return { "symbol": item.symbol, "usd": item.usd, "color": item.color } })
+        // let count = 1
+        interval = setInterval(async function () {
+            isCanvas = true
+            brush.clearRect(0, 0, 800, 400)
+            drawLines(100)
+            drawLines(200)
+            drawLines(300)
+            drawVerticalLine()
+            const bigNum = arrFiltered.reduce((reasult, item) => {
+                for (let i = 0; i < item.usd.length; i++) {
+                    if (item.usd[i] > reasult) reasult = item.usd[i]
+                }
+                return reasult
+            }, 0)
+            const arrDraw = setHieghts(bigNum, arrFiltered)
+            drawGraphPoints(arrDraw, arrFiltered)
+            const NewInfo = await getInfo(reportsData)
+            arrFiltered.forEach(item => {
+                const { usd, symbol } = item
+                usd.splice(0, 1)
+                usd.push(NewInfo[symbol.toUpperCase()].USD)
+            })
+            let count = 0
+            $(".reports-item").each((i, sqr) => {
+                if (liveArray[i]) {
+                    if (!liveArray[i].data) return
+                    $(sqr).html(`${liveArray[i].symbol} (${arrFiltered[count].usd[3]} $ )`)
+                    count++
+                }
+            })
+        }, 3000);
+    }
 }
 
+// draws forizontal graph lines 
 function drawLines(h) {
     brush.beginPath()
     brush.moveTo(0, h);
@@ -100,7 +116,7 @@ function drawLines(h) {
     brush.strokeStyle = "rgb(29, 40, 47)"
     brush.stroke()
 }
-
+//  draws vertical graph line 
 function drawVerticalLine() {
     brush.beginPath()
     brush.moveTo(185, 0);
@@ -110,18 +126,21 @@ function drawVerticalLine() {
     brush.stroke()
 }
 
+// writes the graph static lines values after calculations 
 function drawlinesvals(content, value) {
     brush.font = "15px Arial";
     brush.fillStyle = "rgb(29, 40, 47)"
     brush.fillText(content, 5, value)
 }
 
+// requests ad sends api data 
 async function getInfo(reportsData) {
     let ans = {}
     await api.getReportsInfo(reportsData).then(res => ans = { ...res })
     return ans
 }
 
+// takes the biggest number from all the values and calculates and draws the line values 
 function setHieghts(bigNum, arr) {
     let mult = 1
     let x = bigNum
@@ -148,6 +167,7 @@ function setHieghts(bigNum, arr) {
     return result
 }
 
+// calculates the data points value compares to the canvas 
 function allPointsPosition(arr, mult, bol) {
     if (!bol) {
         const ret = arr.reduce((ecumilator, item) => {
@@ -172,7 +192,7 @@ function allPointsPosition(arr, mult, bol) {
         return ret
     }
 }
-
+//  draws the  lines values acording to calculations 
 function drawGraphLines(mult, bol) {
     if (bol) {
         drawlinesvals(`${200 * mult}`, 195)
@@ -187,6 +207,7 @@ function drawGraphLines(mult, bol) {
 
 }
 
+// draws the points for every dcoin daa request 
 function drawGraphPoints(arrDraw, arrFiltered) {
     const barWidth = 10
     arrDraw.forEach((item, i) => {
@@ -201,7 +222,7 @@ function drawGraphPoints(arrDraw, arrFiltered) {
         drawCoinLines(item, arrFiltered[i].color)
     })
 }
-
+//  drwas wach coin line between the data point 
 function drawCoinLines(item, color) {
     let x = 190
     brush.beginPath()
@@ -215,6 +236,7 @@ function drawCoinLines(item, color) {
     brush.stroke()
 }
 
+// a function to earase the canvas and stop the interval when leaving the page 
 function closeCanvas() {
     if (isCanvas) clearInterval(interval)
     brush.clearRect(0, 0, 800, 400)
@@ -225,16 +247,19 @@ function closeCanvas() {
     })
 }
 
-
+//  the loader function, draws 5 increasing cyrcles
 function canvasLoader() {
-    console.log("hi")
     if (!isLoader) return
     brush.clearRect(0, 0, 800, 400)
-    brush.beginPath();
-    brush.arc(400, 200, radius, 0, Math.PI * 2, false);
-    brush.fillStyle = "green"
-    brush.fill();
-    radius += 2
+    let circleX = 200
+    for (let i = 0; i < 5; i++) {
+        brush.beginPath();
+        brush.arc(circleX, 200, radius, 0, Math.PI * 2, false);
+        brush.fillStyle = colorArray[i]
+        brush.fill();
+        circleX += 100
+    }
+    radius += 0.5
     requestAnimationFrame(canvasLoader)
     setTimeout(() => {
         isLoader = false

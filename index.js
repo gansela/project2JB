@@ -10,19 +10,23 @@ const reportsArray = []
 // init and listeners fo paginations and navbar
 function init() {
     $("#content").html('<div class="loader"></div>');
-    let pageNavSlice = (pageNumber - 1) * 16
-    api.getCoins().then(res => storeCoinInState(res.slice(pageNavSlice, pageNavSlice + 16)))
-    $("#coin-search").on("input", function () {
-        closeCanvas()
-        $("#canvas-div").css({ display: "none" })
-        $("#about-div").css({ display: "none" })
-        findCoins(this.value)
-    })
-    $("#home").on("click", function () {
+    let pageNavSlice = (pageNumber - 1) * 40
+    api.getCoins().then(res => storeCoinInState(res.slice(pageNavSlice, pageNavSlice + 40)))
+    $("#coin-search-btn").on("click", function () {
         closeCanvas()
         $("#home-div").css({ display: "block" })
         $("#canvas-div").css({ display: "none" })
         $("#about-div").css({ display: "none" })
+        toggleAndDraw()
+    })
+    $("#home").on("click", function () {
+        closeCanvas()
+        $("#coin-search").val("")
+        $("#home-div").css({ display: "block" })
+        $("#canvas-div").css({ display: "none" })
+        $("#about-div").css({ display: "none" })
+        pageNumber = 1
+        toggleAndDraw()
     })
     $("#live-reports").on("click", function () {
         $("#home-div").css({ display: "none" })
@@ -39,9 +43,9 @@ function init() {
     $("#next").on("click", function () {
         $("#content").html('<div class="loader"></div>');
         pageNumber++
-        pageNavSlice = (pageNumber - 1) * 16
+        pageNavSlice = (pageNumber - 1) * 40
         $(".toggle-one").bootstrapToggle("destroy");
-        api.getCoins().then(res => storeCoinInState(res.slice(pageNavSlice, pageNavSlice + 16)))
+        api.getCoins().then(res => storeCoinInState(res.slice(pageNavSlice, pageNavSlice + 40)))
     })
     $("#previous").on("click", function () {
         if (pageNumber < 1) return

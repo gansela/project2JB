@@ -2,19 +2,23 @@
 // search option through the api and drawing only the searcehd coin 
 async function findCoins(val) {
     $(".toggle-one").bootstrapToggle("destroy");
+    if (!val) {
+        $(".page-nav").css({ display: "flex" })
+        return draw(coinsState)
+    }
     $(".page-nav").css({ display: "none" });
-    if (val === "") { draw(coinsState); $(".page-nav").css({ display: "flex" }); return }
     let searchObj = {}
     if (!coinsState[val]) {
         $("#content").html('<div class="loader"></div>');
         await api.getCoins().then(res => findCoinFromApi(res, val))
             .then((coin) => {
-                if (!coin) { return $("#content").html("no results") }
+                if (!coin) { return $("#content").html('<div align="center"><h1>No Results</h1></div>') }
                 coinsState[val] = new Coin(coin, false, 0)
             })
-        return
+        if (!coinsState[val]) return
     }
     searchObj[val] = { ...coinsState[val] }
+    $("#content").html("")
     draw(searchObj)
     $("#home-div").css({ display: "block" })
 }
@@ -74,11 +78,15 @@ function selectCard(symbol) {
     }
     const waitingList = coinsState[symbol]
     $(".popup").css({ display: "block" })
+    $(".toggle-one").prop('disabled', true);
+    $(".parallax").css({opacity: "0.2"})
     $("#coins-list").html("")
     const coinsList = reportsArray.map(coin => { return popupCoin(coin, waitingList) });
     $("#coins-list").append(coinsList)
     $(".popup").find(".cancel-btn").on("click", () => {
         $(".popup").css({ display: "none" })
+        $(".toggle-one").prop('disabled', false);
+        $(".parallax").css({opacity: "1"})
         toggleAndDraw()
     })
     toggleAndDraw()
@@ -98,13 +106,18 @@ function popupCoin(coin, waitingList) {
         reportsArray.splice(index, 1)
         reportsArray.push(waitingList)
         waitingList.isSelected = true
+        $(".toggle-one").prop('disabled', false);
+        $(".parallax").css({opacity: "1"})
+        toggleAndDraw()
     })
     return clonedCoin
 }
 
+//  pre- draw function, decides if to draw thw search or the pagination view
 function toggleAndDraw() {
-    if ($("#coin-search").val()) { findCoins($("#coin-search").val()); return }
+    if ($("#coin-search").val()) { return findCoins($("#coin-search").val()) }
     $(".toggle-one").bootstrapToggle("destroy");
+    $(".page-nav").css({ display: "flex" })
     draw(coinsState)
 }
 
